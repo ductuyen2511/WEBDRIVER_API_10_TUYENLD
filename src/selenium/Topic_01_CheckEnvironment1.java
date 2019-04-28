@@ -43,6 +43,14 @@ public class Topic_01_CheckEnvironment1 {
 		Assert.assertEquals(homePageTitle, "Home page");
 
 	}
+	@Test
+	public void TC_03_CheckTitle() {
+		String homePageTitle = driver.getTitle();
+		System.out.println("Home page Title = " + homePageTitle);
+		Assert.assertEquals(homePageTitle, "Home page");
+
+	}
+
 
 	// Post-condition
 	@AfterClass
