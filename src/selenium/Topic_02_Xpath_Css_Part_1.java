@@ -75,7 +75,6 @@ public class Topic_02_Xpath_Css_Part_1 {
 		driver.findElement(By.id("email")).sendKeys("automation@gmail.com");
 		driver.findElement(By.name("login[password]")).sendKeys("123123123");
 		driver.findElement(By.cssSelector("#send2")).click();
-		driver.findElement(By.className("error-msg"));
 		
 		String inputPasswordIncorrect = driver.findElement(By.xpath("//li/ul/li")).getText();
 		System.out.println("Password incorrect error message" + inputPasswordIncorrect);
