@@ -82,6 +82,13 @@ public class Topic_02_Xpath_Css_Part_1 {
 		Assert.assertEquals(inputPasswordIncorrect, "Invalid login or password.");
 	}
 	
+	@Test
+	public void TC_05_CreateAnAcount() {
+		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
+		driver.findElement(By.xpath("//div[@class='buttons-set']//a[@title='Create an Account']")).click();
+		
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
