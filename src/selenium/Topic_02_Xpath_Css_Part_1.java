@@ -86,7 +86,6 @@ public class Topic_02_Xpath_Css_Part_1 {
 	public void TC_05_CreateAnAcount() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 		driver.findElement(By.xpath("//div[@class='buttons-set']//a[@title='Create an Account']")).click();
-		
 	}
 	
 	@AfterClass
