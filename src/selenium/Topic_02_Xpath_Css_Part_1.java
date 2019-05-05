@@ -1,5 +1,6 @@
 package selenium;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 
 public class Topic_02_Xpath_Css_Part_1 {
 	WebDriver driver;
+	String email;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -19,9 +21,10 @@ public class Topic_02_Xpath_Css_Part_1 {
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get("http://live.guru99.com/");
+		email = "leductuyen" + RandomData() + "@gmail.com";
 	}
 
-	@Test
+	
 	public void TC_01_LoginWithEmptyEmailAndPassword() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 
@@ -39,7 +42,7 @@ public class Topic_02_Xpath_Css_Part_1 {
 		Assert.assertEquals(passwordErrorMessage, "This is a required field.");
 	}
 	
-	@Test
+	
 	public void TC_02_LoginWithInvalidEmail() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 		
@@ -54,7 +57,7 @@ public class Topic_02_Xpath_Css_Part_1 {
 		
 	}
 	
-	@Test
+	
 	public void TC_03_LoginWithPasswordLessThanSixChars() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 		
@@ -68,7 +71,7 @@ public class Topic_02_Xpath_Css_Part_1 {
 		Assert.assertEquals(inputPasswordLessThanSixChars, "Please enter 6 or more characters without leading or trailing spaces.");
 	}
 	
-	@Test
+	
 	public void TC_04_LoginWithPasswordIncorrect() {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 		
@@ -83,14 +86,37 @@ public class Topic_02_Xpath_Css_Part_1 {
 	}
 	
 	@Test
-	public void TC_05_CreateAnAcount() {
+	public void TC_05_CreateAnAcount() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
 		driver.findElement(By.xpath("//div[@class='buttons-set']//a[@title='Create an Account']")).click();
+		driver.findElement(By.id("firstname")).sendKeys("Le");
+		driver.findElement(By.id("middlename")).sendKeys("Duc");
+		driver.findElement(By.id("lastname")).sendKeys("Tuyen");
+		driver.findElement(By.xpath("//input[@id = 'email_address']")).sendKeys(email);
+		driver.findElement(By.id("password")).sendKeys("123456");
+		driver.findElement(By.id("confirmation")).sendKeys("123456");
+		
+		driver.findElement(By.xpath("//button[@title = 'Register']")).click();
+		String successRigister = driver.findElement(By.xpath("//li[@class = 'success-msg']/ul/li/span")).getText();
+		System.out.println("Success Rigister" + successRigister);
+		Assert.assertEquals(successRigister, "Thank you for registering with Main Website Store.");
+		
+		driver.findElement(By.xpath("//a[@class = 'skip-link skip-account']")).click();
+		driver.findElement(By.xpath("//a[@title = 'Log Out']")).click();
+		Assert.assertTrue(driver.findElement(By.xpath("//h2[contains(text(),'This is demo site for')]")).isDisplayed());
+		
+		Thread.sleep(10000);
 	}
 	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
+	}
+	
+	public int RandomData(){
+		Random random = new Random();
+		return random.nextInt(99999);
+		
 	}
 
 }
