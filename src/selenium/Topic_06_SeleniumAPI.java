@@ -1,6 +1,7 @@
 package selenium;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ public class Topic_06_SeleniumAPI {
 	// Enable Element
 	By emailTextbox = By.xpath("//input[@id ='mail']");
 	By ageRadioUnder18 = By.xpath("//input[@id ='under_18']");
+	By ageRadioOver18 = By.xpath("//input[@id ='over_18']");
 	By textAreaEducation = By.xpath("//textarea[@id ='edu']");
 	By jobRole01Combobox = By.xpath("//select[@id ='job1']");
 	By radioInterestDevelop = By.xpath("//input[@id ='development']");
@@ -60,119 +62,66 @@ public class Topic_06_SeleniumAPI {
 
 	@Test
 	public void TC_02_EnalbledAndDisabled() throws Exception {
-		
-		//Check element enable
-		
-		/*Assert.assertTrue(isEnabled(emailTextbox));	
-		Assert.assertTrue(isEnabled(ageRadioUnder18));
-		Assert.assertTrue(isEnabled(textAreaEducation));
-		Assert.assertTrue(isEnabled(jobRole01Combobox));
-		Assert.assertTrue(isEnabled(radioInterestDevelop));
-		Assert.assertTrue(isEnabled(slide01));
-		Assert.assertTrue(isEnabled(button01));
-		
-		//Check element disabled
-		Assert.assertFalse(isEnabled(passWordDisabled));
-		Assert.assertFalse(isEnabled(ageRadioDisabled));
-		Assert.assertFalse(isEnabled(biographyDisabled));
-		Assert.assertFalse(isEnabled(jobRole02Combobox));
-		Assert.assertFalse(isEnabled(radioInterestDisabled));
-		Assert.assertFalse(isEnabled(slide02));
-		Assert.assertFalse(isEnabled(button02));*/
-		
-		if (isEnabled(emailTextbox)) {
-			System.out.println("\n Email is Enabled");
-		} 
-		else {
-			System.out.println("\n Email is Disabled");
-		}
-		if (isEnabled(ageRadioUnder18)) {
-			System.out.println("\n Radio is Enabled");
-		} else {
-			System.out.println("\n Radio is Disabled");
-		}
-		
-		if (isEnabled(textAreaEducation)) {
-			System.out.println("\n textAreaEducation is Enabled");
-		} else {
-			System.out.println("\n textAreaEducation is Disabled");
-		}
-		
-		if (isEnabled(jobRole01Combobox)) {
-			System.out.println("\n jobRole01Combobox is Enabled");
-		} else {
-			System.out.println("\n jobRole01Combobox is Disabled");
-		}
-		
-		if (isEnabled(radioInterestDevelop)) {
-			System.out.println("\n radioInterestDevelop is Enabled");
-		} else {
-			System.out.println("\n radioInterestDevelop is Disabled");
-		}
-		
-		if (isEnabled(slide01)) {
-			System.out.println("\n slide01 is Enabled");
-		} else {
-			System.out.println("\n slide01 is Disabled");
-		}
-		
-		if (isEnabled(button01)) {
-			System.out.println("\n button01 is Enabled");
-		} else {
-			System.out.println("\n button01 is Disabled");
-		}
-		//------------------------------------------------------
-		if (isEnabled(passWordDisabled)) {
-			System.out.println("\n passWordDisabled is Enabled");
-		} else {
-			System.out.println("\n passWordDisabled is Disabled");
-		}
-		if (isEnabled(ageRadioDisabled)) {
-			System.out.println("\n ageRadioDisabled is Enabled");
-		} else {
-			System.out.println("\n ageRadioDisabled is Disabled");
-		}
-		if (isEnabled(biographyDisabled)) {
-			System.out.println("\n biographyDisabled is Enabled");
-		} else {
-			System.out.println("\n biographyDisabled is Disabled");
-		}
-		if (isEnabled(jobRole02Combobox)) {
-			System.out.println("\n jobRole02Combobox is Enabled");
-		} else {
-			System.out.println("\n jobRole02Combobox is Disabled");
-		}
-		if (isEnabled(radioInterestDisabled)) {
-			System.out.println("\n radioInterestDisabled is Enabled");
-		} else {
-			System.out.println("\n radioInterestDisabled is Disabled");
-		}
-		if (isEnabled(slide02)) {
-			System.out.println("\n slide02 is Enabled");
-		} else {
-			System.out.println("\n slide02 is Disabled");
-		}
-		if (isEnabled(button02)) {
-			System.out.println("\n button02 is Enabled");
-		} else {
-			System.out.println("\n button02 is Disabled");
-		}
+
+		// Check element enable
+		isEnabled(emailTextbox);
+		isEnabled(ageRadioUnder18);
+		isEnabled(textAreaEducation);
+		isEnabled(jobRole01Combobox);
+		isEnabled(radioInterestDevelop);
+		isEnabled(slide01);
+		isEnabled(button01);
+
+		// Check element disabled
+		isEnabled(passWordDisabled);
+		isEnabled(ageRadioDisabled);
+		isEnabled(biographyDisabled);
+		isEnabled(jobRole02Combobox);
+		isEnabled(radioInterestDisabled);
+		isEnabled(slide02);
+		isEnabled(button02);
+
 		Thread.sleep(3000);
-		}
+	}
+
+	@Test
+	public void TC_03_SelectedAndUnSelected() {
+		clickToElement(ageRadioUnder18);
+		clickToElement(radioInterestDevelop);
+		
+		Assert.assertTrue(isSelected(ageRadioUnder18));
+		Assert.assertTrue(isSelected(radioInterestDevelop));
+		
+		clickToElement(ageRadioOver18);
+		clickToElement(radioInterestDevelop);
+		
+		Assert.assertFalse(isSelected(ageRadioUnder18));
+		Assert.assertFalse(isSelected(radioInterestDevelop));
+	}
 
 	private String Clear() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean isEnabled(By by) {
+	public void isEnabled(By by) {
 		WebElement element = driver.findElement(by);
-		return element.isEnabled();
+
+		if (element.isEnabled()) {
+			System.out.println("Element" + by + "is enabled");
+		} else {
+			System.out.println("Element" + by + "is disabled");
+		}
 	}
 
 	public boolean isElementDisplayed(By by) {
 		WebElement element = driver.findElement(by);
 		return element.isDisplayed();
+	}
+
+	public boolean isSelected(By by) {
+		WebElement element = driver.findElement(by);
+		return element.isSelected();
 	}
 
 	public void clickToElement(By by) {
