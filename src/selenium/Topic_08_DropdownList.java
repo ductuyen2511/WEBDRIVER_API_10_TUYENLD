@@ -72,32 +72,34 @@ public class Topic_08_DropdownList {
 		// parent //span[@id='number-button']
 		// allItems //ul[@id = 'number-menu']/li
 
-		SelectItemDropdown("//span[@id='number-button']","//ul[@id ='number-menu']/li","19");
+		SelectItemDropdown("//span[@id='number-button']", "//ul[@id ='number-menu']/li", "19");
 		Thread.sleep(2000);
-		
-		SelectItemDropdown("//span[@id='number-button']","//ul[@id ='number-menu']/li","10");
+		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text() = '19']")).isDisplayed());
+
+		SelectItemDropdown("//span[@id='number-button']", "//ul[@id ='number-menu']/li", "10");
 		Thread.sleep(2000);
-		
-		SelectItemDropdown("//span[@id='number-button']","//ul[@id ='number-menu']/li","15");
+		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text() = '10']")).isDisplayed());
+
+		SelectItemDropdown("//span[@id='number-button']", "//ul[@id ='number-menu']/li", "15");
 		Thread.sleep(2000);
-		
+		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text() = '15']")).isDisplayed());
 	}
 
 	public void SelectItemDropdown(String parentLocator, String allItemsDropdown, String expectedText) {
 		WebElement parentElement = driver.findElement(By.xpath(parentLocator));
 		parentElement.click();
-		
-		WebDriverWait wait = new WebDriverWait(driver,30);
+
+		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(allItemsDropdown)));
-		
-		List <WebElement> allElement = driver.findElements(By.xpath(allItemsDropdown));
+
+		List<WebElement> allElement = driver.findElements(By.xpath(allItemsDropdown));
 		System.out.println("All item = " + allElement.size());
-		
-		//for
-		for (int i = 0; i < allElement.size(); i ++){
+
+		// for
+		for (int i = 0; i < allElement.size(); i++) {
 			String item = allElement.get(i).getText();
 			System.out.println("Item text element thu :" + i + " = " + item);
-		
+
 			if (item.equals(expectedText)) {
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", allElement.get(i));
 				allElement.get(i).click();
