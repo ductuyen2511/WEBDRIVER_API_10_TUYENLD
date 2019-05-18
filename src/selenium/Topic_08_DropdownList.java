@@ -65,7 +65,7 @@ public class Topic_08_DropdownList {
 	}
 
 	@Test
-	public void TC_03_DropdownlistCuston() throws Exception {
+	public void TC_03_DropdownlistCustomJquery() throws Exception {
 		// Jquey
 		driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
 
@@ -85,7 +85,12 @@ public class Topic_08_DropdownList {
 		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text() = '15']")).isDisplayed());
 	}
 
+	public void TC_04_DropdownlistCustomAngular() {
+		driver.get("https://material.angular.io/components/select/examples");
+	}
 	public void SelectItemDropdown(String parentLocator, String allItemsDropdown, String expectedText) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		
 		WebElement parentElement = driver.findElement(By.xpath(parentLocator));
 		parentElement.click();
 
@@ -101,7 +106,7 @@ public class Topic_08_DropdownList {
 			System.out.println("Item text element thu :" + i + " = " + item);
 
 			if (item.equals(expectedText)) {
-				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", allElement.get(i));
+				js.executeScript("arguments[0].scrollIntoView(true);", allElement.get(i));
 				allElement.get(i).click();
 				break;
 			}
