@@ -28,7 +28,6 @@ public class Topic_08_DropdownList {
 	}
 
 	// Action of Testcase
-	@Test
 	public void TC_02_DropdownlistSelect() throws Exception {
 		// step 01
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
@@ -64,7 +63,6 @@ public class Topic_08_DropdownList {
 		Assert.assertEquals(select.getOptions().size(), 5);
 	}
 
-	@Test
 	public void TC_03_DropdownlistCustomJquery() throws Exception {
 		// Jquey
 		driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
@@ -85,14 +83,24 @@ public class Topic_08_DropdownList {
 		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text() = '15']")).isDisplayed());
 	}
 
-	public void TC_04_DropdownlistCustomAngular() {
+	@Test
+	public void TC_04_DropdownlistCustomAngular() throws Exception {
 		driver.get("https://material.angular.io/components/select/examples");
+		
+		SelectItemDropdown("//mat-label[text() = 'State']/ancestor::Span/preceding-sibling::mat-select//div[@class = 'mat-select-arrow-wrapper']","//mat-option/span","Florida");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//mat-label[text() = 'State']/ancestor::Span/preceding-sibling::mat-select//div[@class = 'mat-select-value']//span[text() = 'Florida']")).isDisplayed());
+		
+		SelectItemDropdown("//mat-label[text() = 'State']/ancestor::Span/preceding-sibling::mat-select//div[@class = 'mat-select-arrow-wrapper']","//mat-option/span","California");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//mat-label[text() = 'State']/ancestor::Span/preceding-sibling::mat-select//div[@class = 'mat-select-value']//span[text() = 'California']")).isDisplayed());
 	}
-	public void SelectItemDropdown(String parentLocator, String allItemsDropdown, String expectedText) {
+	public void SelectItemDropdown(String parentLocator, String allItemsDropdown, String expectedText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		WebElement parentElement = driver.findElement(By.xpath(parentLocator));
-		parentElement.click();
+		js.executeScript("arguments[0].click();", parentElement);
+		Thread.sleep(2000);
 
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(allItemsDropdown)));
@@ -111,7 +119,6 @@ public class Topic_08_DropdownList {
 				break;
 			}
 		}
-		// Wait all value show
 	}
 
 	// Post-condition
