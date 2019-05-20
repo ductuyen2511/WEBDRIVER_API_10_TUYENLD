@@ -135,6 +135,13 @@ public class Topic_07_TextboxAndTextarea {
 		
 		driver.findElement(By.xpath("//input[@value = 'Submit']")).click();
 		
+		Assert.assertEquals(driver.findElement(addressRow).getText(),addressEdit);
+		Assert.assertEquals(driver.findElement(cityRow).getText(), cityEdit);
+		Assert.assertEquals(driver.findElement(stateRow).getText(), stateEdit);
+		Assert.assertEquals(driver.findElement(pinRow).getText(), pinEdit);
+		Assert.assertEquals(driver.findElement(phoneRow).getText(), phoneEdit);
+		Assert.assertEquals(driver.findElement(emailRow).getText(), email);
+		
 	}
 
 	public void TC_02_CheckTitle() {
@@ -147,10 +154,10 @@ public class Topic_07_TextboxAndTextarea {
 
 	// Post-condition
 	@AfterClass
-	/*public void afterClass() {
+	public void afterClass() {
 		// Close Browser
 		driver.quit();
-	}*/
+	}
 	public int randomEmail() {
 		Random random = new Random();
 		return random.nextInt(9999999);
