@@ -15,6 +15,7 @@ public class Topic_07_TextboxAndTextarea {
 	WebDriver driver;
 	String customerID;
 	String customerName, gender, dateOfBirth, address, city, state, pin, phone, email, passowrd;
+	String addressEdit,cityEdit,stateEdit, pinEdit, phoneEdit;
 	String username, password;
 
 	By customerNameTextbox = By.xpath("//input[@name ='name']");
@@ -38,7 +39,7 @@ public class Topic_07_TextboxAndTextarea {
 	By pinRow = By.xpath("//td[text() = 'Pin']/following-sibling::td");
 	By phoneRow = By.xpath("//td[text() = 'Mobile No.']/following-sibling::td");
 	By emailRow = By.xpath("//td[text() = 'Email']/following-sibling::td");
-
+	
 	@BeforeClass
 	public void beforeClass() {
 		driver = new FirefoxDriver();
@@ -59,6 +60,15 @@ public class Topic_07_TextboxAndTextarea {
 		phone = "0909123123";
 		email = "autotest" + randomEmail() + "@gmail.com";
 		passowrd = "123123";
+		
+		//Edit
+		addressEdit = "1109 Boston";
+		cityEdit = "New York";
+		stateEdit = "California";
+		pinEdit = "456456";
+		phoneEdit = "0909999999";
+		email = "autotest" + randomEmail() + "@gmail.com";
+		
 	}
 
 	// Action of Testcase
@@ -96,6 +106,35 @@ public class Topic_07_TextboxAndTextarea {
 		Assert.assertEquals(driver.findElement(pinRow).getText(), pin);
 		Assert.assertEquals(driver.findElement(phoneRow).getText(), phone);
 		Assert.assertEquals(driver.findElement(emailRow).getText(), email);
+		
+		// Edit customer ID
+		driver.findElement(By.xpath("//a[text() = 'Edit Customer']")).click();
+		driver.findElement(By.xpath("//input[@name = 'cusid']")).sendKeys(customerID);
+		driver.findElement(By.xpath("//input[@name = 'AccSubmit']")).click();
+		
+		By editCustomerNameRow = By.xpath("//input[@name = 'name']");
+		By editCustomerAddressRow = By.xpath("//textarea[@name = 'addr']");
+
+		
+		Assert.assertEquals(driver.findElement(editCustomerNameRow).getAttribute("value"), customerName);
+		Assert.assertEquals(driver.findElement(editCustomerAddressRow).getText(), address);
+		
+		driver.findElement(addressTextarea).clear();
+		driver.findElement(cityTextbox).clear();
+		driver.findElement(stateTextbox).clear();
+		driver.findElement(pinTextbox).clear();
+		driver.findElement(phoneTextbox).clear();
+		driver.findElement(emailTextbox).clear();
+		
+		driver.findElement(addressTextarea).sendKeys(addressEdit);
+		driver.findElement(cityTextbox).sendKeys(cityEdit);
+		driver.findElement(stateTextbox).sendKeys(stateEdit);
+		driver.findElement(pinTextbox).sendKeys(pinEdit);
+		driver.findElement(phoneTextbox).sendKeys(phoneEdit);
+		driver.findElement(emailTextbox).sendKeys(email);
+		
+		driver.findElement(By.xpath("//input[@value = 'Submit']")).click();
+		
 	}
 
 	public void TC_02_CheckTitle() {
@@ -108,10 +147,10 @@ public class Topic_07_TextboxAndTextarea {
 
 	// Post-condition
 	@AfterClass
-	public void afterClass() {
+	/*public void afterClass() {
 		// Close Browser
 		driver.quit();
-	}
+	}*/
 	public int randomEmail() {
 		Random random = new Random();
 		return random.nextInt(9999999);
