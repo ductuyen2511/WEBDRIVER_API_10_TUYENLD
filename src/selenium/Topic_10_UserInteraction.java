@@ -3,6 +3,7 @@ package selenium;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -29,7 +30,8 @@ public class Topic_10_UserInteraction {
 		js = (JavascriptExecutor) driver;
 		action = new Actions(driver);
 	}
-
+	
+	
 	public void TC_01_MoveMouseToElemnt() {
 		driver.get("http://www.myntra.com/");
 		WebElement profileText = driver.findElement(By.xpath("//span[text() = 'Profile']"));
@@ -38,7 +40,8 @@ public class Topic_10_UserInteraction {
 		Assert.assertTrue(driver.findElement(By.xpath("//div[@class = 'login-box']")).isDisplayed());
 
 	}
-
+	
+	
 	public void TC_02_ClickAndHoldElement() {
 		driver.get("http://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List<WebElement> listElement = driver.findElements(By.xpath("//ol[@id = 'selectable']//li"));
@@ -47,7 +50,7 @@ public class Topic_10_UserInteraction {
 		List<WebElement> selectedElement = driver.findElements(By.xpath("//ol[@id = 'selectable']//li[contains(@class,'ui-selected')]"));
 		Assert.assertEquals(selectedElement.size(), 4);
 	}
-
+	
 	public void TC_03_ClickAndHoldRandomItem() throws InterruptedException {
 		driver.get("http://jqueryui.com/resources/demos/selectable/display-grid.html");
 		List<WebElement> listElementRandom = driver.findElements(By.xpath("//ol[@id = 'selectable']//li"));
@@ -72,16 +75,37 @@ public class Topic_10_UserInteraction {
 		driver.switchTo().alert().accept();
 	}
 	
-	@Test
 	public void TC_05_RightClick() throws InterruptedException {
 		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
 		WebElement rightClick = driver.findElement(By.xpath("//span[text() = 'right click me']"));
 		action.contextClick(rightClick).perform();
 
-		Assert.assertEquals(driver.switchTo().alert().getText(), "The Button was double-clicked.");
-		driver.switchTo().alert().accept();
+		WebElement beforeHover = driver.findElement(By.xpath("//li[contains(@class,'context-menu-icon-quit') and contains(@class,'context-menu-visible')]"));
+		action.moveToElement(beforeHover).perform();
+		
+		WebElement afterHover = driver.findElement(By.xpath("//li[contains(@class,'context-menu-icon-quit') and contains(@class,'context-menu-visible') and contains(@class,'context-menu-visible')]"));
+		Assert.assertTrue(afterHover.isDisplayed());
+		
+		//afterHover.click();
+		//Alert alert = driver.switchTo().alert();
+		//Assert.assertEquals(alert.getText(), "clicked: quit");
+		//System.out.println("Message :" +  alert.getText());
+		//alert.accept();
 	}
-
+	
+	@Test
+	public void TC_06_DragAndDrop() throws InterruptedException {
+		driver.get("http://demos.telerik.com/kendo-ui/dragdrop/angular");
+		
+		WebElement smallTarget = driver.findElement(By.xpath("//div[@id ='draggable']"));
+		WebElement bigTarget = driver.findElement(By.xpath("//div[@id ='droptarget']"));
+		
+		action.dragAndDrop(smallTarget, bigTarget).perform();
+		Thread.sleep(2000);
+		
+		Assert.assertEquals(bigTarget.getText(), "You did great!");
+		
+	}
 	// Post-condition
 	@AfterClass
 	public void afterClass() {
