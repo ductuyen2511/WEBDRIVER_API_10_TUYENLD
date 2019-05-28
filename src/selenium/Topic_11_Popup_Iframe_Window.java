@@ -56,7 +56,6 @@ public class Topic_11_Popup_Iframe_Window {
 		}
 	}
 
-	@Test
 	public void TC_02_Window() throws InterruptedException {
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
 
@@ -96,7 +95,59 @@ public class Topic_11_Popup_Iframe_Window {
 		closeAllWindowWithoutParent(parentID);
 	}
 
-	// if there are motr than 2 tab, not work
+	public void TC_03() throws InterruptedException {
+		driver.get("http://www.hdfcbank.com/");
+		
+		String parentId = driver.getWindowHandle();
+		driver.findElement(By.xpath("//a[text() = 'Agri']")).click();
+		Thread.sleep(2000);
+		
+		switchToWinDowByTitle("HDFC Bank Kisan Dhan Vikas e-Kendra");
+		Assert.assertEquals(driver.getTitle(), "HDFC Bank Kisan Dhan Vikas e-Kendra");
+		
+		driver.findElement(By.xpath("//p[text() = 'Account Details']")).click();
+		Thread.sleep(2000);
+		
+		switchToWinDowByTitle("Welcome to HDFC Bank NetBanking");
+		Assert.assertEquals(driver.getTitle(), "Welcome to HDFC Bank NetBanking");
+		
+		WebElement frameFooter = driver.findElement(By.xpath("//frame[@name = 'footer']"));
+		driver.switchTo().frame(frameFooter);
+		
+		driver.findElement(By.xpath("//a[text() = 'Privacy Policy']")).click();
+		switchToWinDowByTitle("HDFC Bank - Leading Bank in India, Banking Services, Private Banking, Personal Loan, Car Loan");
+		Assert.assertEquals(driver.getTitle(), "HDFC Bank - Leading Bank in India, Banking Services, Private Banking, Personal Loan, Car Loan");
+		
+		driver.findElement(By.xpath("//a[text() = 'CSR']")).click();
+		driver.switchTo().defaultContent();
+		
+		closeAllWindowWithoutParent(parentId);
+	}
+	
+	@Test
+	public void TC_04() throws InterruptedException {
+		driver.get("http://live.guru99.com/index.php/");
+		String parentId = driver.getWindowHandle();
+		
+		driver.findElement(By.xpath("//a[text() = 'Mobile']")).click();
+		WebElement sonyExperia = driver.findElement(By.xpath("//a[text() = 'Sony Xperia']/parent::h2/following-sibling::div[@class= 'actions']/child::ul/li/a[text() = 'Add to Compare']"));
+		sonyExperia.click();
+		Thread.sleep(2000);
+		
+		WebElement samsungGalaxy = driver.findElement(By.xpath("//a[text() = 'Samsung Galaxy']/parent::h2/following-sibling::div[@class= 'actions']/child::ul/li/a[text() = 'Add to Compare']"));
+		//js.executeScript("scroll(0, 250);");
+		samsungGalaxy.click();
+		Thread.sleep(2000);
+		
+		driver.findElement(By.xpath("//span[text() = 'Compare']")).click();
+		Thread.sleep(2000);
+		switchToWinDowByTitle("Products Comparison List - Magento Commerce");
+		Assert.assertEquals(driver.getTitle(), "Products Comparison List - Magento Commerce");
+		closeAllWindowWithoutParent(parentId);
+		Thread.sleep(2000);
+	}
+	
+	// if there are more than 2 tabs, not work
 	public void switchToChildWindowById(String parent) {
 		Set<String> allWindow = driver.getWindowHandles();
 		for (String runWindow : allWindow) {
