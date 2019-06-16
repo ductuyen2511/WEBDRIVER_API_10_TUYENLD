@@ -95,7 +95,7 @@ public class Topic_08_DropdownList {
 		Assert.assertTrue(driver.findElement(By.xpath("//mat-label[text() = 'State']/ancestor::Span/preceding-sibling::mat-select//div[@class = 'mat-select-value']//span[text() = 'California']")).isDisplayed());
 	}
 	
-	@Test
+	
 	public void TC_05_DropdownlistKendoUI() throws Exception {
 		driver.get("https://demos.telerik.com/kendo-ui/dropdownlist/index");
 		
@@ -107,6 +107,22 @@ public class Topic_08_DropdownList {
 		Thread.sleep(2000);
 		Assert.assertTrue(driver.findElement(By.xpath("//span[@aria-owns ='color_listbox']//span[@class = 'k-input' and text() ='Black']")).isDisplayed());
 	}
+	
+	@Test
+	public void TC_06_DropdownlistReactJS() throws Exception {
+		//div[@role ='listbox' and contains(@class,'fluid')]
+		//div[contains(@class,'visible menu transition' )]
+		driver.get("https://react.semantic-ui.com/modules/dropdown/");
+		SelectItemDropdown("//div[@role ='listbox' and contains(@class,'fluid')]","//div[contains(@class,'visible menu transition' )]/div","Matt");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@role ='listbox' and contains(@class,'fluid')]//div[@class ='text' and text() = 'Matt']")).isDisplayed());
+		
+		SelectItemDropdown("//div[@role ='listbox' and contains(@class,'fluid')]","//div[contains(@class,'visible menu transition' )]/div","Christian");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@role ='listbox' and contains(@class,'fluid')]//div[@class ='text' and text() = 'Christian']")).isDisplayed());
+		
+	}
+	
 	
 	public void SelectItemDropdown(String parentLocator, String allItemsDropdown, String expectedText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
