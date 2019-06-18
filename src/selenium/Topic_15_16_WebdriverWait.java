@@ -17,6 +17,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.google.common.base.Function;
+
 public class Topic_15_16_WebdriverWait {
 	WebDriver driver;
 	WebDriverWait wait;
@@ -90,7 +92,7 @@ public class Topic_15_16_WebdriverWait {
 		System.out.println("End Time : " + getDateTimeSecond());
 	}
 
-	@Test
+
 	public void TC_05_ExplicitWait() {
 
 		By datetimePicker = By.xpath("//div[contains(@class, 'demo-container')]//div[@class = 'calendarContainer']");
@@ -112,22 +114,24 @@ public class Topic_15_16_WebdriverWait {
 		Assert.assertEquals(dateVerify.getText(), "Saturday, June 15, 2019");
 	}
 
-	public void TC_06_FluentWait() {
+	@Test
+	public void TC_06_FluentWait() throws Exception {
 		driver.get("https://daominhdam.github.io/fluent-wait/");
+		Thread.sleep(2000);
 		WebElement countdown = driver.findElement(By.xpath("//div[@id = 'javascript_countdown_time']"));
-		wait.until(ExpectedConditions.visibilityOf(countdown));
+		//wait.until(ExpectedConditions.visibilityOf(countdown));
 		
 		new FluentWait<WebElement>(countdown)
 			.withTimeout(15, TimeUnit.SECONDS)
 			.pollingEvery(1, TimeUnit.SECONDS)
-			.ignoring(NoSuchElementException.class);
-		 	/*.until(new Function<WebElement, Boolean>(){
+			.ignoring(NoSuchElementException.class)
+		 	.until(new Function<WebElement, Boolean>(){
 		 		public Boolean apply(WebElement element) {
 		 			boolean flag = element.getText().endsWith("00");
 		 			System.out.println("Time = " + element.getText());
 		 			return flag;
 		 		}
-		 	});*/
+		 	});
 	}
 
 	public Date getDateTimeSecond() {
