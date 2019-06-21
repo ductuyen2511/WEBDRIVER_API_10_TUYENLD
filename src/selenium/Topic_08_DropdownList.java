@@ -108,7 +108,7 @@ public class Topic_08_DropdownList {
 		Assert.assertTrue(driver.findElement(By.xpath("//span[@aria-owns ='color_listbox']//span[@class = 'k-input' and text() ='Black']")).isDisplayed());
 	}
 	
-	@Test
+	
 	public void TC_06_DropdownlistReactJS() throws Exception {
 		//div[@role ='listbox' and contains(@class,'fluid')]
 		//div[contains(@class,'visible menu transition' )]
@@ -121,6 +121,33 @@ public class Topic_08_DropdownList {
 		Thread.sleep(2000);
 		Assert.assertTrue(driver.findElement(By.xpath("//div[@role ='listbox' and contains(@class,'fluid')]//div[@class ='text' and text() = 'Christian']")).isDisplayed());
 		
+	}
+
+	public void TC_07_DropdownlistVueJS() throws Exception {
+		driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		SelectItemDropdown("//li[@class ='dropdown-toggle']","//ul[@class = 'dropdown-menu']/li","Third Option");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//li[@class ='dropdown-toggle' and contains(text(), 'Third Option')]")).isDisplayed());
+		
+		SelectItemDropdown("//li[@class ='dropdown-toggle']","//ul[@class = 'dropdown-menu']/li","Second Option");
+		Thread.sleep(2000);
+		Assert.assertTrue(driver.findElement(By.xpath("//li[@class ='dropdown-toggle' and contains(text(), 'Second Option')]")).isDisplayed());
+	}
+	
+	@Test
+	public void TC_08_DropdownlistEditable() throws Exception {
+		driver.get("http://indrimuska.github.io/jquery-editable-select/");
+		driver.findElement(By.xpath("//div[@data-effects = 'default']/input")).sendKeys("A");
+		Thread.sleep(2000);
+		SelectItemDropdown("//div[@data-effects = 'default']/input","//div[text() = 'Default']/following-sibling::div/ul/li[@class ='es-visible']","Smart");
+		Thread.sleep(2000);
+		//div[@data-effects = 'default']/input/following-sibling::ul/li[contains(@class,'selected')]
+		//Assert.assertTrue(driver.findElement(By.xpath("//div[text() = 'Default']/following-sibling::div/ul/li[@class ='es-visible' and text() = 'Smart']")).isDisplayed());
+		
+		driver.findElement(By.xpath("//div[@data-effects = 'default']/input")).clear();
+		driver.findElement(By.xpath("//div[@data-effects = 'default']/input")).sendKeys("A");
+		SelectItemDropdown("//div[@data-effects = 'default']/input","//div[text() = 'Default']/following-sibling::div/ul/li[@class ='es-visible']","Nissan");
+		Thread.sleep(2000);
 	}
 	
 	
