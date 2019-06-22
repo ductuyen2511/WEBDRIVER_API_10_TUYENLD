@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="tests" thread-count = "3">
+	<test name="Run for firfox">
+	<parameter name = "browser" value = "firefox" />
+		<classes>
+			<class name="TestNG.Topic_04_DataProvider" />
+		</classes>
+	</test> 
+	
+	<test name="Run for Chrome">
+	<parameter name = "browser" value = "chrome" />
+		<classes>
+			<class name="TestNG.Topic_04_DataProvider" />
+		</classes>
+	</test> 
+	
+	<test name="Run for Chrome Headless">
+	<parameter name = "browser" value = "headlesschrome" />
+		<classes>
+			<class name="TestNG.Topic_04_DataProvider" />
+		</classes>
+	</test> 
+</suite> 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="tests" thread-count = "3">
+	<test name="Run for firfox">
+	<parameter name = "browser" value = "firefox" />
+		<packages>
+		<package name = "TestNG" />
+		</packages>
+	</test> 
+</suite> 
