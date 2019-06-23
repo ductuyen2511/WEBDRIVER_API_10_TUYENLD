@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+	<suite-files>
+	<suite-files path = "RunParallel.xml"/>
+	<suite-files path = "RunPackage.xml"/>
+	</suite-files>	
+</suite> 
